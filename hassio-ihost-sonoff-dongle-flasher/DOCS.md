@@ -27,6 +27,28 @@ Back up your Zigbee network before flashing. Stop ZHA, Zigbee2MQTT or OTBR first
 
 This fork is a separate add-on repository. Home Assistant assigns it a different repository ID, so it does not replace an already installed upstream add-on. Stop the upstream flasher before starting this copy. Installation builds locally and needs internet access; subsequent catalogue access and firmware downloads use the bundled files.
 
+### Reading and applying serial settings
+
+The firmware choices and selected upgrade target display the target baud rate and flow control. The final confirmation and success dialogs repeat these settings. If the source does not specify flow control, the page says so rather than assuming a value. Custom uploads require the firmware vendor's instructions.
+
+For example, the official PMG24 Zigbee 8.0.2 firmware uses 115200 baud, while the included PMG24 Zigbee 9.1.2 coordinator build uses 460800 baud with software flow control:
+
+1. Back up your Zigbee network and stop the integration using the adapter.
+2. Flash the target firmware. Do not apply the new integration settings while the old firmware is still installed.
+3. Stop the flasher after flashing completes.
+4. In ZHA, open **Settings > Devices & services > ZHA > Configure > Change the current adapter's settings**. Set the serial speed and flow control for the newly installed firmware. For Zigbee2MQTT or OTBR, update the equivalent serial settings.
+5. Reconnect the integration. Do not erase the network or re-pair devices to resolve a serial connection error.
+
+The flasher does not update integration settings automatically. Firmware versions with four numeric components, such as OpenThread 2.7.2.0, are ordered numerically alongside three-component versions such as 2.4.4.
+
+### Firmware provenance and identification limits
+
+The original SONOFF catalogue currently provides official Zigbee 8.0.2 firmware for ZBDongle-E and Dongle-PMG24. The newer binaries are downloaded directly from SONOFF's `sonoff-dongle-series-open-source-firmware` repository, which mirrors Nerivec's board-specific builds. The add-on does not compile the Silicon Labs SDK or run a separate Nerivec service.
+
+The `beta` catalogue flag describes Nerivec's `v2026.6.2-pre1` firmware build release, not Silicon Labs' Zigbee 9.1.2 stack release. Restricting the catalogue to SONOFF's original official builds would remove the newer 9.1.2 choices.
+
+The bundled upstream flasher's Zigbee detector supports EZSP 13–18, but Zigbee 9.1.2 uses EZSP 19. It can therefore report unknown firmware after a successful flash. A completed identification progress bar is not proof that the running firmware was recognized. The causes of unknown OpenThread or MultiPAN identification have not been established.
+
 The inherited, pinned application dependencies still report npm audit findings, including a critical finding. This update does not remediate those application dependencies. Keep the interface behind Home Assistant ingress; do not expose port 8324 to untrusted networks.
 
 ## 2. Prerequisite

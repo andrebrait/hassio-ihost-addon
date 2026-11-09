@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.6
+
+### Added
+
+- Show the selected firmware's baud rate and flow control in desktop and mobile firmware choices and beside the upgrade target.
+- Repeat target serial settings before final flash confirmation and after success, explaining that integration settings must be changed manually after flashing.
+- Identify firmware records without flow-control metadata as unspecified instead of guessing.
+
+### Fixed
+
+- Sort four-component firmware versions numerically so OpenThread 2.7.2.0 appears above 2.4.4 and receives the correct latest-version indicator.
+
 ## 1.3.5
 
 ### Changed
