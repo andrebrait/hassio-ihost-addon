@@ -15,7 +15,8 @@ RUN apk add --no-cache nodejs npm tini udev python3 py3-pip py3-cryptography
 
 COPY --from=upstream /workspace/ /workspace/
 COPY --from=upstream /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-COPY build-firmware.cjs patch-ui.cjs start.cjs ./
+COPY build-firmware.cjs patch-ezsp.cjs patch-ui.cjs start.cjs ./
+RUN node patch-ezsp.cjs
 
 RUN apk add --no-cache --virtual .build-deps build-base python3-dev linux-headers \
     && npm_config_build_from_source=true npm ci --omit=dev \
@@ -30,9 +31,9 @@ RUN apk add --no-cache --virtual .build-deps build-base python3-dev linux-header
 LABEL org.opencontainers.image.source="https://github.com/andrebrait/hassio-ihost-addon" \
       org.opencontainers.image.description="SONOFF Dongle Flasher supports online firmware flashing for the iHost MG21 chip and the SONOFF Dongle series (ZBDongle-P, ZBDongle-E, Dongle-M, Dongle-PMG24, Dongle-LMG21, Dongle-PZG23 and Dongle-MZG23)." \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.version="1.3.6" \
+      org.opencontainers.image.version="1.3.7" \
       io.hass.name="SONOFF Dongle Flasher" \
-      io.hass.version="1.3.6" \
+      io.hass.version="1.3.7" \
       io.hass.type="addon" \
       io.hass.arch="${BUILD_ARCH}"
 

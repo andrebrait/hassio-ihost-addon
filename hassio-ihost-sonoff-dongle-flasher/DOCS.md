@@ -47,7 +47,9 @@ The original SONOFF catalogue currently provides official Zigbee 8.0.2 firmware 
 
 The `beta` catalogue flag describes Nerivec's `v2026.6.2-pre1` firmware build release, not Silicon Labs' Zigbee 9.1.2 stack release. Restricting the catalogue to SONOFF's original official builds would remove the newer 9.1.2 choices.
 
-The bundled upstream flasher's Zigbee detector supports EZSP 13–18, but Zigbee 9.1.2 uses EZSP 19. It can therefore report unknown firmware after a successful flash. A completed identification progress bar is not proof that the running firmware was recognized. The causes of unknown OpenThread or MultiPAN identification have not been established.
+The firmware probe negotiates the NCP's EZSP protocol without the old coordinator-only upper limit of 18. Zigbee 9.1.2 uses EZSP 19; its version-query and bootloader-launch command layouts remain compatible with the bundled codec. The minimum protocol, Zigbee stack type and response validation remain enforced. Compatible newer responses are attempted, but this is not a claim of full coordinator support for every future protocol. Flashing still uses the separate Gecko bootloader protocol.
+
+A completed identification progress bar is not proof that the running firmware was recognized. The causes of unknown OpenThread or MultiPAN identification have not been established.
 
 The inherited, pinned application dependencies still report npm audit findings, including a critical finding. This update does not remediate those application dependencies. Keep the interface behind Home Assistant ingress; do not expose port 8324 to untrusted networks.
 

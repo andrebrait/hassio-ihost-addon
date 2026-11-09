@@ -33,3 +33,18 @@ If it is, the app will try to stop the conflicting service for you.
 ## How to use
 
 See “Documentation” for details on how to use the SONOFF Dongle Flasher app.
+
+## Development checks
+
+From this add-on directory, run `node --test tests/*.test.cjs` for the host-independent catalogue and UI checks.
+
+The runtime protocol tests exercise the bundled EZSP request/response codec with simulated command exchanges. They do not open a serial port, launch a physical bootloader or flash hardware. Build and test an ARM64 image with:
+
+```sh
+docker build --platform linux/arm64 --build-arg BUILD_ARCH=aarch64 -t ihost-flasher-check .
+docker run --rm --network none --entrypoint sh \
+  -v "$PWD/tests:/workspace/tests:ro" ihost-flasher-check \
+  -c 'node --test tests/*.test.cjs tests/runtime/*.test.cjs'
+```
+
+Coverage includes EZSP 13, 18 and 19, a synthetic higher-version response with the same command layouts, invalid stack types, failed or malformed responses, and the bootloader-launch command. The synthetic case verifies the absence of an arbitrary upper bound; it does not establish compatibility with an unreleased protocol.

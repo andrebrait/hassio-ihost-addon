@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.7
+
+### Fixed
+
+- Remove the coordinator-only upper EZSP version limit from the flasher's firmware probe. EZSP 19 firmware can now negotiate its protocol, report its version and use the existing bootloader-launch command.
+- Retain the minimum supported protocol, Zigbee stack-type checks, response validation and command errors. Compatible higher-version responses are attempted rather than rejected solely by version number.
+- Correct negotiation logs so newer protocols are not described as older than the host.
+
 ## 1.3.6
 
 ### Added
