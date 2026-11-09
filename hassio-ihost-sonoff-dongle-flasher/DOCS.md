@@ -8,6 +8,27 @@ SONOFF Dongle Flasher supports online firmware flashing for the iHost MG21 chip 
 
 In addition to the SONOFF Dongle Flasher app, we also provide a [container version](https://hub.docker.com/r/ewelink/sonoff-dongle-flasher).
 
+### Updated firmware in this fork
+
+The application is reused from the published SONOFF 1.3.4 image; its flashing logic is unchanged. The base is Home Assistant Alpine 3.24 for amd64/aarch64 and 3.22 for armv7. Home Assistant no longer publishes newer ARMv7 base images.
+
+The build combines the [original firmware catalogue](https://github.com/iHost-Open-Source-Project/hassio-ihost-sonoff-dongle-flasher/tree/136ab2fe736a1e5e9c880c2334d2c95adf1e2f25/firmware-build) with [SONOFF's third-party firmware catalogue](https://github.com/SONOFF-Technologies/sonoff-dongle-series-open-source-firmware/tree/aa9dafc12db5f7eee01593f083d679d7d1ef31f0). Firmware is downloaded at build time and served only on loopback at runtime. Third-party binaries are verified against the catalogue's SHA-256 hashes and sizes. No firmware is flashed automatically.
+
+| Device | Stable Zigbee coordinator | Stable OpenThread | Beta Zigbee / OpenThread |
+| --- | --- | --- | --- |
+| ZBDongle-E | 8.2.2.0, 115200 baud | 2.7.2.0, 921600 baud | 9.1.2, 115200 / 3.1.2, 460800 |
+| Dongle-PMG24 | 8.2.2.0, 460800 baud | 2.7.2.0, 460800 baud | 9.1.2, 460800 / 3.1.2, 460800 |
+| Dongle-LMG21 | 8.2.2.0, 115200 baud | 2.7.2.0, 460800 baud | 9.1.2, 115200 / 3.1.2, 460800 |
+| Dongle-M | 8.2.2.0, 115200 baud | 2.7.2.0, 115200 baud | 9.1.2, 460800 / 3.1.2, 460800 |
+
+Stable firmware comes from [v2025.6.2-update1](https://github.com/Nerivec/silabs-firmware-builder/releases/tag/v2025.6.2-update1). Beta firmware comes from [v2026.6.2-pre1](https://github.com/Nerivec/silabs-firmware-builder/releases/tag/v2026.6.2-pre1); it is not a stable release. Zigbee router firmware is also included, at 115200 baud. The listed coordinator and Thread builds use software flow control, except Dongle-M beta builds, which use no flow control. Beta router builds also use no flow control. None uses hardware RTS/CTS.
+
+Back up your Zigbee network before flashing. Stop ZHA, Zigbee2MQTT or OTBR first, and update the consumer's baud rate after flashing if it changes. Confirm that the consumer supports the selected firmware; downgrading or changing protocols may require restoring a network backup or pairing devices again. Existing firmware choices and the iHost CUBE reset firmware are retained, but this does not guarantee that a downgrade preserves network state.
+
+This fork is a separate add-on repository. Home Assistant assigns it a different repository ID, so it does not replace an already installed upstream add-on. Stop the upstream flasher before starting this copy. Installation builds locally and needs internet access; subsequent catalogue access and firmware downloads use the bundled files.
+
+The inherited, pinned application dependencies still report npm audit findings, including a critical finding. This update does not remediate those application dependencies. Keep the interface behind Home Assistant ingress; do not expose port 8324 to untrusted networks.
+
 ## 2. Prerequisite
 
 Before using the app, please make sure the serial port is not in use (it is commonly occupied by services like Zigbee2MQTT or ZHA).
@@ -24,13 +45,13 @@ Skip this step and simply proceed to the App Store to install the required app i
 1. Via URL
 
 -   Navigate to Settings > App Store> Click the three-dot menu (⋮) in the top right corner and select Repositories
--   Enter the repository URL into the input box: https://github.com/iHost-Open-Source-Project/hassio-ihost-addon
+-   Enter the repository URL into the input box: https://github.com/andrebrait/hassio-ihost-addon
 
 2. Via Button Clicking
 
 -   Click this button to add the app automatically
 
-[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FiHost-Open-Source-Project%2Fhassio-ihost-addon)
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fandrebrait%2Fhassio-ihost-addon)
 
 ### 3.2 Install SONOFF Dongle Flasher App
 

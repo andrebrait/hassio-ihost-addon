@@ -1,5 +1,5 @@
 {
-    "name": "iHost Open Source Project",
-    "url": "https://github.com/iHost-Open-Source-Project/hassio-ihost-addon",
-    "maintainer": "cubeDeveloper <cube@coolkit.cn>"
+    "name": "iHost Add-ons — updated SONOFF Dongle Flasher",
+    "url": "https://github.com/andrebrait/hassio-ihost-addon",
+    "maintainer": "andrebrait"
 }

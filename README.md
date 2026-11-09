@@ -3,13 +3,15 @@
 ## About
 This repository contains a set of Home Assistant add-ons developed specifically for **SONOFF**.
 
+This fork updates **SONOFF Dongle Flasher** with newer Home Assistant base images, esptool, and firmware. Other add-ons remain unchanged.
+
 ## Installation
 1. Go to the Add-on Store → Click the **More** button (⋮) in the upper-right corner → Select **Repositories**  
 2. Paste the following URL:  
-   [https://github.com/iHost-Open-Source-Project/hassio-ihost-addon](https://github.com/iHost-Open-Source-Project/hassio-ihost-addon)  
+   [https://github.com/andrebrait/hassio-ihost-addon](https://github.com/andrebrait/hassio-ihost-addon)
 3. Or, simply click the button below to add it automatically:
 
-[![Add Repository](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FiHost-Open-Source-Project%2Fhassio-ihost-addon)
+[![Add Repository](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fandrebrait%2Fhassio-ihost-addon)
 
 ## 🔄 Updating Repository
 
@@ -31,4 +33,4 @@ All add-ons in this repository are released under the [MIT License](./LICENSE).
 
 ## Maintainers
 
-Maintained by the [iHost Open Source Project](https://github.com/iHost-Open-Source-Project).
+Originally maintained by the [iHost Open Source Project](https://github.com/iHost-Open-Source-Project). This fork is maintained by [andrebrait](https://github.com/andrebrait).

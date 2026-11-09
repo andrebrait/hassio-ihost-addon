@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.5
+
+### Changed
+
+- Build the published SONOFF 1.3.4 application locally on Home Assistant Alpine 3.24 for amd64/aarch64 and the latest available ARMv7 base, Alpine 3.22.
+- Update esptool to 5.6.0 and rebuild the pinned Node.js dependencies for the new runtime.
+- Bundle the original firmware catalogue and SONOFF's newer third-party firmware for offline use, verifying third-party binaries with SHA-256 and size checks.
+- Add Zigbee coordinator/router 8.2.2.0 and OpenThread 2.7.2.0 for ZBDongle-E, Dongle-PMG24, Dongle-LMG21 and Dongle-M.
+- Offer Zigbee 9.1.2 and OpenThread 3.1.2 prereleases as beta choices without removing existing firmware.
+
 ## 1.3.4
 
 ### Added
