@@ -31,9 +31,9 @@ RUN apk add --no-cache --virtual .build-deps build-base python3-dev linux-header
 LABEL org.opencontainers.image.source="https://github.com/andrebrait/hassio-ihost-addon" \
       org.opencontainers.image.description="SONOFF Dongle Flasher supports online firmware flashing for the iHost MG21 chip and the SONOFF Dongle series (ZBDongle-P, ZBDongle-E, Dongle-M, Dongle-PMG24, Dongle-LMG21, Dongle-PZG23 and Dongle-MZG23)." \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.version="1.3.8" \
+      org.opencontainers.image.version="1.3.9" \
       io.hass.name="SONOFF Dongle Flasher" \
-      io.hass.version="1.3.8" \
+      io.hass.version="1.3.9" \
       io.hass.type="addon" \
       io.hass.arch="${BUILD_ARCH}"
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.9
+
+### Fixed
+
+- Try active USB firmware queries before resetting the adapter. If they do not identify the firmware, arm startup detection before resetting so immediate MultiPAN, router and older NCP startup replies are not missed.
+- Keep serial ownership checks ahead of detection and preserve bootloader recovery and board-specific reset handling.
+
 ## 1.3.8
 
 ### Changed

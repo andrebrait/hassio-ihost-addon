@@ -50,3 +50,5 @@ docker run --rm --network none --entrypoint sh \
 Coverage includes EZSP 13, 18 and 19, a synthetic higher-version response with the same command layouts, invalid stack types, failed or malformed responses, and the bootloader-launch command. The synthetic case verifies the absence of an arbitrary upper bound; it does not establish compatibility with an unreleased protocol.
 
 Active USB detection tests use the bundled OpenThread HDLC parser and EZSP codec with simulated physical links and bounded virtual time. They cover non-115200 radios without startup banners, official/community version strings, fragmented frames, corrupt checksums and transport cleanup. Ownership tests use temporary device aliases and simulated Supervisor responses; they verify that OTBR's port is blocked without blocking a separate Zigbee dongle or changing services.
+
+Reset fallback tests exercise the real startup classifiers and version parsers with simulated serial signals. They cover immediate MultiPAN replies, listening before iHost GPIO reset, and identification at the final fallback baud rate. No physical reset or flashing is performed by these tests.
