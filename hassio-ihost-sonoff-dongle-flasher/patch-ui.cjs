@@ -49,8 +49,6 @@ function main() {
     }
     replace('f.sort((c,p)=>{const h=c.sdkVersion||c.version,g=p.sdkVersion||p.version,v=oi.valid(h),m=oi.valid(g);if(v&&m)return oi.rcompare(h,g);if(v)return-1;if(m)return 1;const y=js(h),S=js(g);return!isNaN(y)&&!isNaN(S)?S-y:0})', 'f.sort(compareFirmwareVersions)', 2);
     replace('r.sort((o,i)=>{const a=o.sdkVersion||o.version,l=i.sdkVersion||i.version,u=oi.valid(a),f=oi.valid(l);if(u&&f)return oi.rcompare(a,l);const c=js(a),p=js(l);return!isNaN(c)&&!isNaN(p)?p-c:0})', 'r.sort(compareFirmwareVersions)');
-    replace('])])],10,oue)', '])]),ihostSerialSettings(L.name)],10,oue)');
-    replace('],10,_ue)', ',ihostSerialSettings(N.name)],10,_ue)');
     replace('ve("div",{class:hn(["operate",{disabled:w.value}])', 'ihostSerialSettings(Zi().upgradeFirmwareName.value),ve("div",{class:hn(["operate",{disabled:w.value}])');
     replace('default:Ve(()=>[o[4]||(o[4]=ve("div",{class:"flash-confirm"}', 'default:Ve(()=>[ihostSerialSettings(Zi().upgradeFirmwareName.value,true),o[4]||(o[4]=ve("div",{class:"flash-confirm"}');
     replace('ve("div",Xue,[', 've("div",Xue,[ihostSerialSettings(Zi().upgradeFirmwareName.value,true),');
@@ -62,13 +60,10 @@ function main() {
     const style = `<style>
 .ihost-serial-settings-info{width:100%;flex-basis:100%;margin-top:6px;color:#333;font-size:12px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
 .ihost-serial-settings-reminder{margin:12px 0;padding:12px;border:1px solid #faad14;border-radius:6px;background:#fffbe6;color:#333;text-align:left;font-size:14px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
-.version-item:has(>.ihost-serial-settings-info){height:auto!important;display:block!important}
-.version-item>.ihost-serial-settings-info{margin:0;padding:0 12px 10px}
-.item:has(>.ihost-serial-settings-info){height:auto!important;min-height:44px;flex-wrap:wrap}
 </style>`;
     fs.writeFileSync(bundlePath, bundle);
     fs.writeFileSync(indexPath, index.replace('</head>', `${style}</head>`));
-    console.log('Added firmware serial details, post-flash reminders and numeric version ordering');
+    console.log('Added selected firmware serial details, post-flash reminders and numeric version ordering');
 }
 
 module.exports = { compareFirmwareVersions };

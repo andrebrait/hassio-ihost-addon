@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.8
+
+### Changed
+
+- Keep baud rate and flow control beside the selected upgrade target and in flash reminders, without repeating them in firmware choice lists.
+
+### Fixed
+
+- Actively query USB Silicon Labs dongles for OpenThread and Zigbee versions across their supported baud rates instead of depending on a startup banner after a 115200-only handshake.
+- Accept official and community OpenThread version strings with three or four numeric components, retaining checksum validation for complete and fragmented replies.
+- Check whether the core OpenThread Border Router app owns the selected serial device before service controls, serial access or resets. Match by-id aliases to the same physical port and report the existing serial-port-in-use error without stopping OTBR.
+- Retain the legacy router, older NCP and iHost GPIO-specific detection paths.
+
 ## 1.3.7
 
 ### Fixed

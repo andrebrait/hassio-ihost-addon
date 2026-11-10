@@ -29,7 +29,7 @@ This fork is a separate add-on repository. Home Assistant assigns it a different
 
 ### Reading and applying serial settings
 
-The firmware choices and selected upgrade target display the target baud rate and flow control. The final confirmation and success dialogs repeat these settings. If the source does not specify flow control, the page says so rather than assuming a value. Custom uploads require the firmware vendor's instructions.
+After a firmware is selected, the upgrade target displays its baud rate and flow control. The firmware choice lists remain compact. The final confirmation and success dialogs repeat the target settings. If the source does not specify flow control, the page says so rather than assuming a value. Custom uploads require the firmware vendor's instructions.
 
 For example, the official PMG24 Zigbee 8.0.2 firmware uses 115200 baud, while the included PMG24 Zigbee 9.1.2 coordinator build uses 460800 baud with software flow control:
 
@@ -49,9 +49,11 @@ The `beta` catalogue flag describes Nerivec's `v2026.6.2-pre1` firmware build re
 
 The firmware probe negotiates the NCP's EZSP protocol without the old coordinator-only upper limit of 18. Zigbee 9.1.2 uses EZSP 19; its version-query and bootloader-launch command layouts remain compatible with the bundled codec. The minimum protocol, Zigbee stack type and response validation remain enforced. Compatible newer responses are attempted, but this is not a claim of full coordinator support for every future protocol. Flashing still uses the separate Gecko bootloader protocol.
 
-A completed identification progress bar is not proof that the running firmware was recognized. The causes of unknown OpenThread or MultiPAN identification have not been established.
+USB ZBDongle-E, Dongle-LMG21 and Dongle-PMG24 identification actively requests OpenThread and Zigbee versions at the requested baud rate and the supported 115200, 230400, 460800 and 921600 rates. It does not require the running firmware to print a startup banner. Official `SL-OPENTHREAD/` and community `OPENTHREAD/` version strings are recognized, including fragmented replies, only after checksum validation. Older NCP, router and iHost GPIO-specific paths remain available as fallbacks; MultiPAN detection continues to use the upstream path.
 
-The inherited, pinned application dependencies still report npm audit findings, including a critical finding. This update does not remediate those application dependencies. Keep the interface behind Home Assistant ingress; do not expose port 8324 to untrusted networks.
+Before probing or resetting a port, the app checks whether the core OpenThread Border Router app is running on that same device, including a by-id alias. A matching owner produces the serial-port-in-use error; a different Zigbee dongle is not blocked. Stop OTBR manually before connecting the flasher to its adapter. The flasher does not stop or reconfigure OTBR automatically. A completed identification progress bar is not proof that firmware was recognized.
+
+The inherited, pinned application dependencies still report npm audit findings, including a critical finding. This update does not remediate those application dependencies. The inherited application can also write HA authentication tokens to its logs; do not publish unredacted logs. Keep the interface behind Home Assistant ingress; do not expose port 8324 to untrusted networks.
 
 ## 2. Prerequisite
 
